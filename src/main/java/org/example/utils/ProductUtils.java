@@ -1,17 +1,20 @@
-package ORG.EXAMPLE.utils;
+package org.example.utils;
 
-import ORG.EXAMPLE.moDEL.IProduct;
-import ORG.EXAMPLE.moDEL.NotifiableProduct;
-import ORG.EXAMPLE.moDEL.Product;
-import ORG.EXAMPLE.moDEL.ProductBundle;
-import ORG.EXAMPLE.repository.ProductRepository;
+import org.example.models.NotifiableProduct;
+import org.example.models.Product;
+import org.example.models.ProductBundle;
+import org.example.repository.ProductRepository;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 public class ProductUtils {
-    private ProductRepository repository = new ProductRepository();
+    private final ProductRepository repository;
+
+    public ProductUtils(ProductRepository repository) {
+        this.repository = repository;
+    }
 
     public void saveNotifiableProduct(NotifiableProduct product) {
         repository.save(product);
@@ -23,11 +26,13 @@ public class ProductUtils {
 
     public int filterNotifiableProductsAndSendNotifications() {
         int notifications = 0;
-        List<NotifiableProduct> products = repository.getAll().stream().filter(it -> it instanceof NotifiableProduct).map(it -> (NotifiableProduct) it).toList();
+        List<NotifiableProduct> products = repository
+                .getAll()
+                .stream()
+                .filter(it -> it instanceof NotifiableProduct)
+                .map(it -> (NotifiableProduct) it)
+                .collect(Collectors.toList());
         for (NotifiableProduct product : products) {
-            if (product instanceof ProductBundle) {
-                continue;
-            }
             //sending some notifications here
             notifications++;
         }
