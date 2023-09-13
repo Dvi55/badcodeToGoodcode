@@ -1,18 +1,16 @@
-package org.example;
+package ORG.EXAMPLE;
 
-import org.example.models.NotifiableProduct;
-import org.example.models.Product;
-import org.example.models.ProductBundle;
-import org.example.repository.ProductRepository;
-import org.example.utils.ProductUtils;
+import ORG.EXAMPLE.moDEL.NotifiableProduct;
+import ORG.EXAMPLE.moDEL.Product;
+import ORG.EXAMPLE.moDEL.ProductBundle;
+import ORG.EXAMPLE.utils.ProductUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Runner {
     public static void main(String[] args) {
-        ProductRepository repository = new ProductRepository();
-        ProductUtils utils = new ProductUtils(repository);
+        ProductUtils utils = new ProductUtils();
         List<Product> products = new ArrayList<>();
         products.add(utils.generateRandomProduct());
         products.add(utils.generateRandomProduct());
